@@ -8,7 +8,7 @@ import org.springframework.core.type.classreading.MetadataReader;
 import io.freefair.android.spring.core.io.DexClassResource;
 
 /**
- * Created by larsgrefer on 03.04.17.
+ * @author Lars Grefer
  */
 public class AndroidMetadataReader implements MetadataReader {
 

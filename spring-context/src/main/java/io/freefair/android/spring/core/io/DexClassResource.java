@@ -1,7 +1,5 @@
 package io.freefair.android.spring.core.io;
 
-import android.support.annotation.NonNull;
-
 import org.springframework.core.io.AbstractResource;
 import org.springframework.util.ClassUtils;
 
@@ -65,7 +63,6 @@ public class DexClassResource extends AbstractResource {
         return exists;
     }
 
-    @NonNull
     public Class<?> loadClass() throws ClassNotFoundException {
         if(clazz == null) {
             clazz = classLoader.loadClass(className);

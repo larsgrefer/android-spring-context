@@ -22,10 +22,8 @@ public class SpringActivityDelegate extends AbstractSpringDelegate<Activity> {
     }
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        autowireElement();
-
         getActivityScope(getApplicationContext()).onCreateActivity(element);
-
+        autowireElement();
     }
 
     public void onDestroy() {

@@ -16,15 +16,6 @@ android {
         consumerProguardFile file('proguard-rules.pro')
 
     }
-
-    packagingOptions {
-        merge 'META-INF/spring.schemas'
-        merge 'META-INF/spring.tooling'
-        merge 'META-INF/spring.handlers'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/notice.txt'
-    }
-
 }
 
 configurations.all {
@@ -43,55 +34,7 @@ dependencies {
 
     provided "org.springframework:spring-context:$springVersion"
 
-    compile jarjar.repackage {
-        from "org.springframework:spring-aop:$springVersion@jar"
-        destinationName = "spring-aop-${springVersion}-android.jar"
-
-        classRename "java.beans.**", "com.googlecode.openbeans.@1"
-        classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
-    }
-    compile jarjar.repackage {
-        from "org.springframework:spring-beans:$springVersion@jar"
-        destinationName = "spring-beans-${springVersion}-android.jar"
-
-        classRename "java.beans.**", "com.googlecode.openbeans.@1"
-        classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
-    }
-    compile jarjar.repackage {
-        from "org.springframework:spring-expression:$springVersion@jar"
-        destinationName = "spring-expression-${springVersion}-android.jar"
-
-        classRename "java.beans.**", "com.googlecode.openbeans.@1"
-        classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
-    }
-    compile jarjar.repackage {
-        from "org.springframework:spring-core:$springVersion@jar"
-        destinationName = "spring-core-${springVersion}-android.jar"
-
-        classDelete "org.springframework.cglib.**"
-        classDelete "org.springframework.core.type.classreading.SimpleMetadataReader"
-
-        classRename "java.beans.**", "com.googlecode.openbeans.@1"
-        classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
-    }
-    compile jarjar.repackage {
-        from "org.springframework:spring-context:$springVersion@jar"
-        destinationName = "spring-context-${springVersion}-android.jar"
-
-        classDelete "org.springframework.ejb.**"
-        classDelete "org.springframework.context.annotation.ConfigurationClassEnhancer"
-        classDelete "org.springframework.instrument.classloading.**"
-
-        classRename "java.beans.**", "com.googlecode.openbeans.@1"
-        classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
-    }
-    compile jarjar.repackage {
-        from 'org.slf4j:jcl-over-slf4j:1.7.21@jar'
-        destinationName = "jcl-over-slf4j-1.7.21-android.jar"
-
-        classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
-    }
-    compile 'io.freefair:openbeans:2.1'
+    compile project(":spring-context")
 
     testCompile 'junit:junit:4.12'
 }
