@@ -20,6 +20,9 @@ android {
         merge 'META-INF/spring.handlers'
         exclude 'META-INF/license.txt'
         exclude 'META-INF/notice.txt'
+        exclude 'org/springframework/ejb/**'
+        exclude 'org/springframework/cglib/**'
+        exclude 'org/springframework/remoting/rmi/**'
     }
 
 }
@@ -61,6 +64,7 @@ dependencies {
         destinationName = "spring-core-${springVersion}-android.jar"
 
         classDelete "org.springframework.cglib.**"
+        classDelete "org.springframework.asm.**"
         classDelete "org.springframework.core.type.classreading.SimpleMetadataReader"
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"
@@ -71,6 +75,7 @@ dependencies {
 
         classDelete "org.springframework.ejb.**"
         classDelete "org.springframework.context.annotation.ConfigurationClassEnhancer"
+        classDelete 'org.springframework.context.annotation.ConfigurationClassEnhancer$*'
         classDelete "org.springframework.instrument.classloading.**"
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"

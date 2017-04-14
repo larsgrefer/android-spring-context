@@ -3,7 +3,7 @@
 
 -dontwarn org.springframework.**
 -dontwarn com.googlecode.openbeans.**
--dontwarn org.apache.harmony.beans.editors.**
+-dontwarn org.apache.commons.logging.impl.**
 
 -keep class * implements org.springframework.beans.BeanInfoFactory
 
