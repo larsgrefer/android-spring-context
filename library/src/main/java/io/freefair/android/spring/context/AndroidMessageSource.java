@@ -11,7 +11,7 @@ import java.util.Locale;
 
 public class AndroidMessageSource implements MessageSource {
 
-    Application application;
+    private Application application;
 
     @Override
     public String getMessage(String code, Object[] args, String defaultMessage, Locale locale) {

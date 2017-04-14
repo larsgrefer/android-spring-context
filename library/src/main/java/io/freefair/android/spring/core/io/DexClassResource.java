@@ -1,5 +1,7 @@
 package io.freefair.android.spring.core.io;
 
+import android.support.annotation.NonNull;
+
 import org.springframework.core.io.AbstractResource;
 import org.springframework.util.ClassUtils;
 
@@ -11,7 +13,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Created by larsgrefer on 02.04.17.
+ * @author Lars Grefer
  */
 @RequiredArgsConstructor
 @Getter
@@ -19,6 +21,12 @@ public class DexClassResource extends AbstractResource {
 
     private final String className;
     private final ClassLoader classLoader;
+    private Class<?> clazz = null;
+    private Boolean exists = null;
+
+    public DexClassResource(Class<?> clazz) {
+        this(clazz.getName(), clazz.getClassLoader());
+    }
 
     @Override
     public String getDescription() {
@@ -43,11 +51,25 @@ public class DexClassResource extends AbstractResource {
 
     @Override
     public boolean exists() {
-        try {
-            classLoader.loadClass(className);
-            return true;
-        } catch (ClassNotFoundException e) {
-            return false;
+        if (exists == null) {
+            if (clazz != null) {
+                return exists = true;
+            }
+            try {
+                loadClass();
+                exists = true;
+            } catch (ClassNotFoundException e) {
+                exists = false;
+            }
         }
+        return exists;
+    }
+
+    @NonNull
+    public Class<?> loadClass() throws ClassNotFoundException {
+        if(clazz == null) {
+            clazz = classLoader.loadClass(className);
+        }
+        return clazz;
     }
 }

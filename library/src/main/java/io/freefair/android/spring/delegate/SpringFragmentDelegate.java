@@ -4,23 +4,25 @@ import android.app.Application;
 import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-
-import io.freefair.android.spring.context.ContextHolder;
-import lombok.RequiredArgsConstructor;
 
 /**
  * @author Lars Grefer
  */
 @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
-@RequiredArgsConstructor
-public class SpringFragmentDelegate {
+public class SpringFragmentDelegate extends AbstractSpringDelegate<Fragment> {
 
-    private final Fragment fragment;
+    public SpringFragmentDelegate(@NonNull Fragment fragment) {
+        super(fragment);
+    }
 
     public void onCreate(Bundle savedInstanceState) {
-        Application application = fragment.getActivity().getApplication();
+        autowireElement();
+    }
 
-        ContextHolder.getContext(application).getAutowireCapableBeanFactory().autowireBean(fragment);
+    @Override
+    protected Application getApplication() {
+        return element.getActivity().getApplication();
     }
 }

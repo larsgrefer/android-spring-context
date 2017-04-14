@@ -1,4 +1,4 @@
-package io.freefair.spring.android;
+package io.freefair.android.spring.demo;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import io.freefair.android.spring.integration.SpringAppCompatActivity;
+import io.freefair.spring.android.R;
 
 public class MainActivity extends SpringAppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

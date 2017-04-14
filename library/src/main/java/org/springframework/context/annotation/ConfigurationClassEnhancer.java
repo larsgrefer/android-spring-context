@@ -13,8 +13,7 @@ class ConfigurationClassEnhancer {
     }
 
     public Class<?> enhance(Class<?> configClass, ClassLoader classLoader) {
-        log.warn("Not enhanching {}", configClass);
+        log.warn("Not enhanching configuration {}", configClass);
         return configClass;
     }
-
 }

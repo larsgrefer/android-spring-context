@@ -31,6 +31,8 @@ configurations.all {
     exclude group: "commons-logging", module: "commons-logging"
 }
 
+def springVersion = "4.3.6.RELEASE"
+
 dependencies {
 
     provided "org.projectlombok:lombok:1.16.16"
@@ -39,28 +41,32 @@ dependencies {
 
     compile 'com.android.support:appcompat-v7:25.3.1'
 
-    provided 'org.springframework:spring-context:4.3.6.RELEASE'
+    provided "org.springframework:spring-context:$springVersion"
 
     compile jarjar.repackage {
-        from 'org.springframework:spring-aop:4.3.6.RELEASE@jar'
-
-        classRename "java.beans.**", "com.googlecode.openbeans.@1"
-        classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
-    }
-    compile jarjar.repackage {
-        from 'org.springframework:spring-beans:4.3.6.RELEASE@jar'
+        from "org.springframework:spring-aop:$springVersion@jar"
+        destinationName = "spring-aop-${springVersion}-android.jar"
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"
         classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
     }
     compile jarjar.repackage {
-        from 'org.springframework:spring-expression:4.3.6.RELEASE@jar'
+        from "org.springframework:spring-beans:$springVersion@jar"
+        destinationName = "spring-beans-${springVersion}-android.jar"
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"
         classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
     }
     compile jarjar.repackage {
-        from 'org.springframework:spring-core:4.3.6.RELEASE@jar'
+        from "org.springframework:spring-expression:$springVersion@jar"
+        destinationName = "spring-expression-${springVersion}-android.jar"
+
+        classRename "java.beans.**", "com.googlecode.openbeans.@1"
+        classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
+    }
+    compile jarjar.repackage {
+        from "org.springframework:spring-core:$springVersion@jar"
+        destinationName = "spring-core-${springVersion}-android.jar"
 
         classDelete "org.springframework.cglib.**"
         classDelete "org.springframework.core.type.classreading.SimpleMetadataReader"
@@ -69,7 +75,8 @@ dependencies {
         classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
     }
     compile jarjar.repackage {
-        from 'org.springframework:spring-context:4.3.6.RELEASE@jar'
+        from "org.springframework:spring-context:$springVersion@jar"
+        destinationName = "spring-context-${springVersion}-android.jar"
 
         classDelete "org.springframework.ejb.**"
         classDelete "org.springframework.context.annotation.ConfigurationClassEnhancer"
@@ -80,9 +87,11 @@ dependencies {
     }
     compile jarjar.repackage {
         from 'org.slf4j:jcl-over-slf4j:1.7.21@jar'
+        destinationName = "jcl-over-slf4j-1.7.21-android.jar"
+
         classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
     }
-    compile 'io.freefair:openbeans:2.0'
+    compile 'io.freefair:openbeans:2.1'
 
     testCompile 'junit:junit:4.12'
 }

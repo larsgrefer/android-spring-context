@@ -1,17 +1,21 @@
 package io.freefair.android.spring.context;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.googlecode.openbeans.Introspector;
 
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ScopeMetadataResolver;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.util.Assert;
 
 import io.freefair.android.spring.core.env.AndroidEnvironment;
 import io.freefair.android.spring.core.io.AndroidResourceLoader;
@@ -22,16 +26,24 @@ import io.freefair.android.spring.core.io.support.AndroidPathMatchingResourcePat
  */
 public class AndroidApplicationContext extends GenericApplicationContext {
 
-    private Application application;
+    @NonNull
+    private final Application application;
 
-    AnnotatedBeanDefinitionReader annotatedBeanDefinitionReader;
-    XmlBeanDefinitionReader xmlBeanDefinitionReader;
+    @Nullable
+    private final Class<?> buildConfigClass;
 
-    public AndroidApplicationContext(Application application) {
-        if(application == null) {
-            throw new NullPointerException("application");
-        }
+    @NonNull
+    private final AnnotatedBeanDefinitionReader reader;
+
+    public AndroidApplicationContext(@NonNull Application application, @Nullable Class<?> buildConfigClass) {
+        Assert.notNull(application, "application must not be null");
+        Assert.isTrue(buildConfigClass == null || buildConfigClass.getSimpleName().equals("BuildConfig"), "Illegal buildConfigClass");
+
         this.application = application;
+        this.buildConfigClass = buildConfigClass;
+
+        this.reader = new AnnotatedBeanDefinitionReader(this);
+
         ContextHolder.registerContext(application, this);
 
         setResourceLoader(new AndroidResourceLoader());
@@ -39,15 +51,12 @@ public class AndroidApplicationContext extends GenericApplicationContext {
         this.getDefaultListableBeanFactory().registerSingleton("application", application);
         this.registerAlias("application", Introspector.decapitalize(application.getClass().getSimpleName()));
 
-        annotatedBeanDefinitionReader = new AnnotatedBeanDefinitionReader(this);
-        xmlBeanDefinitionReader = new XmlBeanDefinitionReader(this);
-
-        annotatedBeanDefinitionReader.register(application.getClass());
+        register(application.getClass());
     }
 
     @Override
     public String getId() {
-        return application.getApplicationInfo().packageName;
+        return application.getPackageName();
     }
 
     @Override
@@ -72,11 +81,31 @@ public class AndroidApplicationContext extends GenericApplicationContext {
 
     @Override
     protected ConfigurableEnvironment createEnvironment() {
-        return new AndroidEnvironment(application);
+        return new AndroidEnvironment(application, buildConfigClass);
     }
 
     @Override
     protected ResourcePatternResolver getResourcePatternResolver() {
         return new AndroidPathMatchingResourcePatternResolver(this);
     }
+
+    public void setEnvironment(ConfigurableEnvironment environment) {
+        super.setEnvironment(environment);
+        this.reader.setEnvironment(environment);
+    }
+
+    public void setBeanNameGenerator(BeanNameGenerator beanNameGenerator) {
+        this.reader.setBeanNameGenerator(beanNameGenerator);
+        this.getBeanFactory().registerSingleton("org.springframework.context.annotation.internalConfigurationBeanNameGenerator", beanNameGenerator);
+    }
+
+    public void setScopeMetadataResolver(ScopeMetadataResolver scopeMetadataResolver) {
+        this.reader.setScopeMetadataResolver(scopeMetadataResolver);
+    }
+
+    public void register(Class... annotatedClasses) {
+        Assert.notEmpty(annotatedClasses, "At least one annotated class must be specified");
+        this.reader.register(annotatedClasses);
+    }
+
 }

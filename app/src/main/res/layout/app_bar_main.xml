@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.freefair.spring.android.MainActivity">
+    tools:context="io.freefair.spring.android.io.freefair.android.spring.demo.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

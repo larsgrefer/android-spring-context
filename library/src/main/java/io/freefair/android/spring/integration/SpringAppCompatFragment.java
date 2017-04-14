@@ -5,15 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import io.freefair.android.spring.delegate.SpringAppCompatFragmentDelegate;
-import lombok.RequiredArgsConstructor;
 
 /**
- * Created by larsgrefer on 02.04.17.
+ * @author Lars Grefer
  */
 public class SpringAppCompatFragment extends Fragment {
 
     private final SpringAppCompatFragmentDelegate delegate = new SpringAppCompatFragmentDelegate(this);
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -10,7 +10,15 @@ import io.freefair.android.spring.delegate.SpringApplicationDelegate;
  */
 public class SpringApplication extends Application {
 
-    private final SpringApplicationDelegate delegate = new SpringApplicationDelegate(this);
+    private final SpringApplicationDelegate delegate;
+
+    public SpringApplication() {
+        this(null);
+    }
+
+    public SpringApplication(Class<?> buildConfigClass) {
+        delegate = new SpringApplicationDelegate(this, buildConfigClass);
+    }
 
     @Override
     public void onCreate() {

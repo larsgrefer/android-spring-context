@@ -1,4 +1,4 @@
-package io.freefair.spring.android;
+package io.freefair.android.spring.demo;
 
 import org.slf4j.impl.HandroidLoggerAdapter;
 import org.springframework.context.annotation.Bean;
@@ -6,15 +6,20 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import io.freefair.android.spring.integration.SpringApplication;
+import io.freefair.spring.android.BuildConfig;
 
 /**
- * Created by larsgrefer on 01.04.17.
+ * @author Lars Grefer
  */
 @Configuration
-@ComponentScan("io.freefair.spring.android")
+@ComponentScan
 public class DemoApplication extends SpringApplication {
 
     static DemoApplication me;
+
+    public DemoApplication() {
+        super(BuildConfig.class);
+    }
 
     @Override
     public void onCreate() {

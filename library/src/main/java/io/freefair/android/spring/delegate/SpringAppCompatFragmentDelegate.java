@@ -2,22 +2,24 @@ package io.freefair.android.spring.delegate;
 
 import android.app.Application;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-
-import io.freefair.android.spring.context.ContextHolder;
-import lombok.RequiredArgsConstructor;
 
 /**
  * @author Lars Grefer
  */
-@RequiredArgsConstructor
-public class SpringAppCompatFragmentDelegate {
+public class SpringAppCompatFragmentDelegate extends AbstractSpringDelegate<Fragment> {
 
-    private final Fragment fragment;
+    public SpringAppCompatFragmentDelegate(@NonNull Fragment fragment) {
+        super(fragment);
+    }
 
     public void onCreate(Bundle savedInstanceState) {
-        Application application = fragment.getActivity().getApplication();
+        autowireElement();
+    }
 
-        ContextHolder.getContext(application).getAutowireCapableBeanFactory().autowireBean(this);
+    @Override
+    protected Application getApplication() {
+        return element.getActivity().getApplication();
     }
 }
