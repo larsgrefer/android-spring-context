@@ -6,7 +6,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import io.freefair.android.spring.integration.SpringApplication;
-import io.freefair.spring.android.BuildConfig;
 
 /**
  * @author Lars Grefer

@@ -1,4 +1,4 @@
-package io.freefair.spring.android;
+package io.freefair.android.spring.demo;
 
 import org.junit.Test;
 

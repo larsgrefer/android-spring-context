@@ -1,4 +1,4 @@
-package io.freefair.spring.android;
+package io.freefair.android.spring.demo;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
