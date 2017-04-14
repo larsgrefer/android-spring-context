@@ -11,8 +11,6 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
         consumerProguardFile file('proguard-rules.pro')
     }
 
@@ -45,21 +43,18 @@ dependencies {
         destinationName = "spring-aop-${springVersion}-android.jar"
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"
-        classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
     }
     compile jarjar.repackage {
         from "org.springframework:spring-beans:$springVersion@jar"
         destinationName = "spring-beans-${springVersion}-android.jar"
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"
-        classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
     }
     compile jarjar.repackage {
         from "org.springframework:spring-expression:$springVersion@jar"
         destinationName = "spring-expression-${springVersion}-android.jar"
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"
-        classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
     }
     compile jarjar.repackage {
         from "org.springframework:spring-core:$springVersion@jar"
@@ -69,7 +64,6 @@ dependencies {
         classDelete "org.springframework.core.type.classreading.SimpleMetadataReader"
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"
-        classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
     }
     compile jarjar.repackage {
         from "org.springframework:spring-context:$springVersion@jar"
@@ -80,14 +74,8 @@ dependencies {
         classDelete "org.springframework.instrument.classloading.**"
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"
-        classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
     }
-    compile jarjar.repackage {
-        from 'org.slf4j:jcl-over-slf4j:1.7.21@jar'
-        destinationName = "jcl-over-slf4j-1.7.21-android.jar"
-
-        classRename "org.apache.commons.logging.**", "io.freefair.logging.@1"
-    }
+    compile 'org.slf4j:jcl-over-slf4j:1.7.21@jar'
     compile 'io.freefair:openbeans:2.1'
 
     testCompile 'junit:junit:4.12'

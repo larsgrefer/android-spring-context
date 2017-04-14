@@ -8,10 +8,12 @@ import android.support.annotation.RequiresApi;
 
 import io.freefair.android.spring.delegate.SpringFragmentDelegate;
 
+import static android.os.Build.VERSION_CODES.HONEYCOMB;
+
 /**
  * @author Lars Grefer
  */
-@RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+@RequiresApi(api = HONEYCOMB)
 public class SpringFragment extends Fragment {
 
     private final SpringFragmentDelegate delegate = new SpringFragmentDelegate(this);

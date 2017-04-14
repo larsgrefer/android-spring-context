@@ -3,6 +3,7 @@ package io.freefair.android.spring.delegate;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -21,9 +22,18 @@ public class SpringActivityDelegate extends AbstractSpringDelegate<Activity> {
         super(activity);
     }
 
+    @MainThread
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        getActivityScope(getApplicationContext()).onCreateActivity(element);
+        getActivityScope(getApplicationContext()).setCurrentActivity(element);
         autowireElement();
+    }
+
+    public void onStart() {
+        getActivityScope().setCurrentActivity(element);
+    }
+
+    public void onResume() {
+        getActivityScope().setCurrentActivity(element);
     }
 
     public void onDestroy() {
@@ -45,4 +55,5 @@ public class SpringActivityDelegate extends AbstractSpringDelegate<Activity> {
     protected Application getApplication() {
         return element.getApplication();
     }
+
 }

@@ -26,7 +26,6 @@ public class SpringApplicationDelegate extends AbstractSpringDelegate<Applicatio
     }
 
     public void onCreate() {
-
         StopWatch stopWatch = new StopWatch("AndroidApplicationContext");
         stopWatch.start("construct");
         applicationContext = new AndroidApplicationContext(element, buildConfigClass);
@@ -55,5 +54,10 @@ public class SpringApplicationDelegate extends AbstractSpringDelegate<Applicatio
     @Override
     public AndroidApplicationContext getApplicationContext() {
         return applicationContext;
+    }
+
+    public void onTerminate() {
+        applicationContext.close();
+        applicationContext = null;
     }
 }

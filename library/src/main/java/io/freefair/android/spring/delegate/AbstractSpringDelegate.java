@@ -35,4 +35,6 @@ abstract class AbstractSpringDelegate<T> {
         log.info("autowire {}", element);
         getApplicationContext().getAutowireCapableBeanFactory().autowireBean(element);
     }
+
+
 }

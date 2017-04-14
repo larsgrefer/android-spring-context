@@ -22,10 +22,6 @@ public class DexClassResource extends AbstractResource {
     private Class<?> clazz = null;
     private Boolean exists = null;
 
-    public DexClassResource(Class<?> clazz) {
-        this(clazz.getName(), clazz.getClassLoader());
-    }
-
     @Override
     public String getDescription() {
         return "class " + className;

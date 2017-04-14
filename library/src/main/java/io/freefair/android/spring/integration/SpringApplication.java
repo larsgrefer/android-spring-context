@@ -1,6 +1,7 @@
 package io.freefair.android.spring.integration;
 
 import android.app.Application;
+import android.support.annotation.CallSuper;
 
 import io.freefair.android.spring.context.AndroidApplicationContext;
 import io.freefair.android.spring.delegate.SpringApplicationDelegate;
@@ -21,9 +22,16 @@ public class SpringApplication extends Application {
     }
 
     @Override
+    @CallSuper
     public void onCreate() {
         super.onCreate();
         delegate.onCreate();
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        delegate.onTerminate();
     }
 
     public AndroidApplicationContext getSpringContext() {

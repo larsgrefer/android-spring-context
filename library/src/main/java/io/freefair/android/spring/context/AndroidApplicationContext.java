@@ -10,7 +10,6 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ScopeMetadataResolver;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -107,5 +106,4 @@ public class AndroidApplicationContext extends GenericApplicationContext {
         Assert.notEmpty(annotatedClasses, "At least one annotated class must be specified");
         this.reader.register(annotatedClasses);
     }
-
 }

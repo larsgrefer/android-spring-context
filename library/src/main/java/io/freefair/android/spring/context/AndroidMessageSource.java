@@ -3,14 +3,21 @@ package io.freefair.android.spring.context;
 import android.app.Application;
 import android.support.annotation.StringRes;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.stereotype.Component;
 
 import java.util.Locale;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Component(AndroidApplicationContext.MESSAGE_SOURCE_BEAN_NAME)
 public class AndroidMessageSource implements MessageSource {
 
+    @Autowired
     private Application application;
 
     @Override
