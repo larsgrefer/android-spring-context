@@ -1,0 +1,43 @@
+# Spring-Context for Android
+Using an Spring ApplicationContext on Android
+
+WARNING: This is not production ready. It's just a proof of concept
+
+## What's working:
+
+* Classpath scanning:
+** `@ComponentScan`
+** `ClassPathScanningCandidateComponentProvider` (using the provided `ResourcePatternResolver`)
+* Annotation Configuration
+** `@Configuration`
+
+## What's not working:
+
+* Everything cglib related:
+** Configuration Class Enhancement (so don't call `@Bean` methods directly)
+** CGLIB proxies
+* Evertything asm related:
+
+## Additional Features:
+
+* PropertySources
+** Application `<meta-data />` from `AndroidManifest.xml`
+** BuildConfig fields
+* Scopes
+** `activity` scope (highly experimental)
+
+## Startup Times
+|===
+|Device |Time
+
+|OnePlus 3T
+|0.5s
+
+|HTC One V
+|1s
+
+|HTC Desire Z
+|~2.2s
+|===
+
+
