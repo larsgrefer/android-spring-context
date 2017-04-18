@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="io.freefair.android.spring.demo">
+          package="de.larsgrefer.android.spring.demo">
 
     <application
         android:allowBackup="true"
@@ -8,10 +8,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name="io.freefair.android.spring.demo.DemoApplication"
+        android:name="de.larsgrefer.android.spring.demo.DemoApplication"
         android:theme="@style/AppTheme">
         <activity
-            android:name="io.freefair.android.spring.demo.MainActivity"
+            android:name="de.larsgrefer.android.spring.demo.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
