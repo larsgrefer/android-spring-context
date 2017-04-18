@@ -64,7 +64,7 @@ dependencies {
         destinationName = "spring-core-${springVersion}-android.jar"
 
         classDelete "org.springframework.cglib.**"
-        classDelete "org.springframework.asm.**"
+        //classDelete "org.springframework.asm.**"
         classDelete "org.springframework.core.type.classreading.SimpleMetadataReader"
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"
