@@ -23,8 +23,6 @@ WARNING: This is not production ready. It's just a proof of concept
 * PropertySources
 ** Application `<meta-data />` from `AndroidManifest.xml`
 ** BuildConfig fields
-* Scopes
-** `activity` scope (highly experimental)
 
 ## Startup Times
 |===
