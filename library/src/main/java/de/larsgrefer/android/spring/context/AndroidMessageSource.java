@@ -1,30 +1,27 @@
 package de.larsgrefer.android.spring.context;
 
-import android.app.Application;
+import android.content.Context;
 import android.support.annotation.StringRes;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
 
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
-@Component(AndroidApplicationContext.MESSAGE_SOURCE_BEAN_NAME)
+@AllArgsConstructor
+@Component(AbstractApplicationContext.MESSAGE_SOURCE_BEAN_NAME)
 public class AndroidMessageSource implements MessageSource {
 
-    @Autowired
-    private Application application;
+    private Context context;
 
     @Override
     public String getMessage(String code, Object[] args, String defaultMessage, Locale locale) {
         int i = resolveId(code);
 
-        return i != 0 ? application.getResources().getString(i, args) : defaultMessage;
+        return i != 0 ? context.getResources().getString(i, args) : defaultMessage;
     }
 
     @Override
@@ -32,7 +29,7 @@ public class AndroidMessageSource implements MessageSource {
         int i = resolveId(code);
 
         if (i != 0) {
-            return application.getResources().getString(i, args);
+            return context.getResources().getString(i, args);
         } else {
             throw new NoSuchMessageException(code);
         }
@@ -48,7 +45,7 @@ public class AndroidMessageSource implements MessageSource {
         try {
             return Integer.parseInt(code);
         } catch (NumberFormatException e) {
-            return application.getResources().getIdentifier(code, "string", null);
+            return context.getResources().getIdentifier(code, "string", null);
         }
     }
 }

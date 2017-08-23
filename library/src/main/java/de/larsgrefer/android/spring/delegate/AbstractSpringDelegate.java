@@ -2,13 +2,11 @@ package de.larsgrefer.android.spring.delegate;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
-
-import org.springframework.util.Assert;
-
-import de.larsgrefer.android.spring.context.AndroidApplicationContext;
 import de.larsgrefer.android.spring.context.ContextHolder;
 import de.larsgrefer.android.spring.integration.SpringApplication;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.util.Assert;
 
 @Slf4j
 abstract class AbstractSpringDelegate<T> {
@@ -20,7 +18,7 @@ abstract class AbstractSpringDelegate<T> {
         this.element = element;
     }
 
-    AndroidApplicationContext getApplicationContext() {
+    GenericApplicationContext getApplicationContext() {
         Application application = getApplication();
         if (application instanceof SpringApplication) {
             return ((SpringApplication) application).getSpringContext();

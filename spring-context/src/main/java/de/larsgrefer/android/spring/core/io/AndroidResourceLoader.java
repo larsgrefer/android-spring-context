@@ -10,6 +10,13 @@ import org.springframework.util.ClassUtils;
  */
 public class AndroidResourceLoader extends DefaultResourceLoader {
 
+    public AndroidResourceLoader() {
+    }
+
+    public AndroidResourceLoader(ClassLoader classLoader) {
+        super(classLoader);
+    }
+
     @Override
     public Resource getResource(String location) {
 

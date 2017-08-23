@@ -25,25 +25,4 @@ public class SpringAppCompatActivity extends AppCompatActivity {
         delegate.onCreate(savedInstanceState);
     }
 
-    @Override
-    @CallSuper
-    protected void onStart() {
-        super.onStart();
-        delegate.onStart();
-    }
-
-    @Override
-    @CallSuper
-    protected void onResume() {
-        super.onResume();
-        delegate.onResume();
-    }
-
-    @Override
-    @CallSuper
-    protected void onDestroy() {
-        super.onDestroy();
-        delegate.onDestroy();
-    }
-
 }

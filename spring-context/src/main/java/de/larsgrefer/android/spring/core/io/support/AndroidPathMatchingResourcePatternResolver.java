@@ -1,26 +1,18 @@
 package de.larsgrefer.android.spring.core.io.support;
 
+import dalvik.system.DexFile;
+import dalvik.system.PathClassLoader;
+import de.larsgrefer.android.spring.core.io.AndroidResourceLoader;
+import de.larsgrefer.android.spring.core.io.DexClassResource;
+import de.larsgrefer.android.spring.core.io.DexPathResource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.util.ReflectionUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.WeakHashMap;
-
-import dalvik.system.DexFile;
-import dalvik.system.PathClassLoader;
-import de.larsgrefer.android.spring.core.io.DexClassResource;
-import de.larsgrefer.android.spring.core.io.DexPathResource;
-import lombok.extern.slf4j.Slf4j;
+import java.util.*;
 
 /**
  * @author Lars Grefer
@@ -30,9 +22,18 @@ public class AndroidPathMatchingResourcePatternResolver extends PathMatchingReso
 
     private final WeakHashMap<PathClassLoader, List<DexFile>> dexFilesCache = new WeakHashMap<>();
 
-    public AndroidPathMatchingResourcePatternResolver(ResourceLoader androidApplicationContext) {
-        super(androidApplicationContext);
+    public AndroidPathMatchingResourcePatternResolver() {
+        this(new AndroidResourceLoader());
     }
+
+    public AndroidPathMatchingResourcePatternResolver(AndroidResourceLoader resourceLoader) {
+        super(resourceLoader);
+    }
+
+    public AndroidPathMatchingResourcePatternResolver(ClassLoader classLoader) {
+        this(new AndroidResourceLoader(classLoader));
+    }
+
 
     @Override
     protected Set<Resource> doFindAllClassPathResources(String path) throws IOException {

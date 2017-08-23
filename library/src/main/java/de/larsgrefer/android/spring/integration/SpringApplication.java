@@ -2,9 +2,8 @@ package de.larsgrefer.android.spring.integration;
 
 import android.app.Application;
 import android.support.annotation.CallSuper;
-
-import de.larsgrefer.android.spring.context.AndroidApplicationContext;
 import de.larsgrefer.android.spring.delegate.SpringApplicationDelegate;
+import org.springframework.context.support.GenericApplicationContext;
 
 /**
  * @author Lars Grefer
@@ -34,7 +33,7 @@ public class SpringApplication extends Application {
         delegate.onTerminate();
     }
 
-    public AndroidApplicationContext getSpringContext() {
+    public GenericApplicationContext getSpringContext() {
         return delegate.getSpringContext();
     }
 }
