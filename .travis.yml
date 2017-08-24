@@ -17,7 +17,6 @@ android:
     - platform-tools
     - build-tools-26.0.0
     - android-26
-    - extra
 
 install: ./gradlew clean
 
