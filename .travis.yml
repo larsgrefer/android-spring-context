@@ -15,7 +15,7 @@ android:
   components:
     - tools
     - platform-tools
-    - build-tools-26.0.0
+    - build-tools-26.0.1
     - android-26
 
 install: ./gradlew clean
