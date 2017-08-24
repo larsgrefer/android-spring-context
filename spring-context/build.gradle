@@ -31,13 +31,13 @@ configurations.all {
     exclude group: "commons-logging", module: "commons-logging"
 }
 
-def springVersion = "4.3.6.RELEASE"
+def springVersion = "4.3.10.RELEASE"
 
 dependencies {
 
-    provided "org.projectlombok:lombok:1.16.16"
+    provided "org.projectlombok:lombok:1.16.18"
 
-    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'org.slf4j:slf4j-api:1.7.25'
 
     provided "org.springframework:spring-context:$springVersion"
 
@@ -80,7 +80,7 @@ dependencies {
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"
     }
-    compile 'org.slf4j:jcl-over-slf4j:1.7.21@jar'
+    compile 'org.slf4j:jcl-over-slf4j:1.7.25@jar'
     compile 'io.freefair:openbeans:2.2'
 
     testCompile 'junit:junit:4.12'

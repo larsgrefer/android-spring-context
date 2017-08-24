@@ -14,11 +14,11 @@ android {
     }
 }
 
-def springVersion = "4.3.6.RELEASE"
+def springVersion = "4.3.10.RELEASE"
 
 dependencies {
 
-    provided "org.projectlombok:lombok:1.16.16"
+    provided "org.projectlombok:lombok:1.16.18"
 
     compile 'com.android.support:appcompat-v7:25.4.0'
 

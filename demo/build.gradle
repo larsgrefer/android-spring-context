@@ -24,7 +24,7 @@ android {
 
 dependencies {
     compile project(":library")
-    provided "org.projectlombok:lombok:1.16.16"
+    provided "org.projectlombok:lombok:1.16.18"
 
     compile 'io.freefair:slf4j-android:1.7.21'
     compile 'com.android.support:appcompat-v7:25.4.0'
