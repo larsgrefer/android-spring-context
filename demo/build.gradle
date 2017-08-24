@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.freefair.android-ci'
 
 android {
     compileSdkVersion 26

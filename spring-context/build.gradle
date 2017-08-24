@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'org.anarres.jarjar'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'io.freefair.android-maven-jars'
+apply plugin: 'io.freefair.android-ci'
 
 android {
     compileSdkVersion 26
