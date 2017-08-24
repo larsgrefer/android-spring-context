@@ -11,9 +11,9 @@ public class MessageSourceInitializer implements ApplicationContextInitializer<G
     public void initialize(GenericApplicationContext applicationContext) {
 
         if(applicationContext instanceof AnnotationConfigRegistry) {
-            ((AnnotationConfigRegistry) applicationContext).register(AndroidMessageSource.class);
+            ((AnnotationConfigRegistry) applicationContext).register(AndroidResourcesMessageSource.class);
         } else {
-            new AnnotatedBeanDefinitionReader(applicationContext).registerBean(AndroidMessageSource.class);
+            new AnnotatedBeanDefinitionReader(applicationContext).registerBean(AndroidResourcesMessageSource.class);
         }
     }
 }

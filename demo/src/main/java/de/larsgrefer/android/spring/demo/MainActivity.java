@@ -2,19 +2,18 @@ package de.larsgrefer.android.spring.demo;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
+import android.view.View;
 import de.larsgrefer.android.spring.integration.SpringAppCompatActivity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 public class MainActivity extends SpringAppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -24,6 +23,9 @@ public class MainActivity extends SpringAppCompatActivity
 
     @Autowired
     private Dummy2 dummy2;
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class MainActivity extends SpringAppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+
+        applicationContext.getMessage("app_name", null, null);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
