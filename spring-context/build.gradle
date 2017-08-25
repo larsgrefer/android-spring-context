@@ -77,6 +77,8 @@ dependencies {
         destinationName = "spring-context-${springVersion}-android.jar"
 
         classDelete "org.springframework.ejb.**"
+        classDelete "org.springframework.jmx.**"
+        classDelete "org.springframework.remoting.rmi.**"
         classDelete "org.springframework.context.annotation.ConfigurationClassEnhancer"
         classDelete 'org.springframework.context.annotation.ConfigurationClassEnhancer$*'
         classDelete "org.springframework.instrument.classloading.**"
