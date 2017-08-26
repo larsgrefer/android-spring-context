@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import de.larsgrefer.android.spring.integration.SpringAppCompatActivity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 
 public class MainActivity extends SpringAppCompatActivity
@@ -27,6 +28,9 @@ public class MainActivity extends SpringAppCompatActivity
     @Autowired
     private ApplicationContext applicationContext;
 
+    @Value("${io.freefair.mode}")
+    private String mode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +43,7 @@ public class MainActivity extends SpringAppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, mode, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
