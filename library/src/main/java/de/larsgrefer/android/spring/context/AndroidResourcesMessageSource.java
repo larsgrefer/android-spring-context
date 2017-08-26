@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Locale;
 
-import static de.larsgrefer.android.spring.context.LocaleUtil.getLocale;
+import static android.support.v4.os.ConfigurationCompat.getLocales;
 
 @Component(AbstractApplicationContext.MESSAGE_SOURCE_BEAN_NAME)
 public class AndroidResourcesMessageSource implements MessageSource {
@@ -39,7 +39,7 @@ public class AndroidResourcesMessageSource implements MessageSource {
         String message = getMessageInternal(code, args);
 
         if (message == null) {
-            throw new NoSuchMessageException(code, getLocale(context));
+            throw new NoSuchMessageException(code, getLocales(context.getResources().getConfiguration()).get(0));
         } else {
             return message;
         }
@@ -74,7 +74,7 @@ public class AndroidResourcesMessageSource implements MessageSource {
 
     private String formatDefaultMessage(Object[] args, String defaultMessage) {
         if (valid(args)) {
-            return String.format(getLocale(context), defaultMessage, args);
+            return String.format(getLocales(context.getResources().getConfiguration()).get(0), defaultMessage, args);
         } else {
             return defaultMessage;
         }

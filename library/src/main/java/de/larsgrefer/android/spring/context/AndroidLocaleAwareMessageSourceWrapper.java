@@ -3,6 +3,7 @@ package de.larsgrefer.android.spring.context;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.os.ConfigurationCompat;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.HierarchicalMessageSource;
@@ -37,17 +38,17 @@ public class AndroidLocaleAwareMessageSourceWrapper implements HierarchicalMessa
     }
 
     @Override
-    public String getMessage(String code, Object[] args, String defaultMessage, Locale locale) {
+    public String getMessage(String code, Object[] args, String defaultMessage, @Nullable Locale locale) {
         return parentMessageSource.getMessage(code, args, defaultMessage, resolveLocale(locale));
     }
 
     @Override
-    public String getMessage(String code, Object[] args, Locale locale) throws NoSuchMessageException {
+    public String getMessage(String code, Object[] args, @Nullable Locale locale) throws NoSuchMessageException {
         return parentMessageSource.getMessage(code, args, resolveLocale(locale));
     }
 
     @Override
-    public String getMessage(MessageSourceResolvable resolvable, Locale locale) throws NoSuchMessageException {
+    public String getMessage(MessageSourceResolvable resolvable, @Nullable Locale locale) throws NoSuchMessageException {
         return parentMessageSource.getMessage(resolvable, resolveLocale(locale));
     }
 
@@ -56,7 +57,7 @@ public class AndroidLocaleAwareMessageSourceWrapper implements HierarchicalMessa
         if (locale != null && !ignoreGivenLocale) {
             return locale;
         } else {
-            return LocaleUtil.getLocale(context);
+            return ConfigurationCompat.getLocales(context.getResources().getConfiguration()).get(0);
         }
     }
 
