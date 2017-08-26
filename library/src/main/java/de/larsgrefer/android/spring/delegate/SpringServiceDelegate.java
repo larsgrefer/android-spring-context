@@ -23,6 +23,6 @@ public class SpringServiceDelegate extends AbstractSpringDelegate<Service> {
 
     @Override
     protected Application getApplication() {
-        return element.getApplication();
+        return getElement().getApplication();
     }
 }

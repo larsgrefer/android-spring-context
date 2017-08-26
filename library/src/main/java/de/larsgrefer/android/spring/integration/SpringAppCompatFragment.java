@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import de.larsgrefer.android.spring.context.ApplicationContextProvider;
 import de.larsgrefer.android.spring.delegate.SpringAppCompatFragmentDelegate;
+import org.springframework.context.support.GenericApplicationContext;
 
 /**
  * @author Lars Grefer
  */
-public class SpringAppCompatFragment extends Fragment {
+public abstract class SpringAppCompatFragment extends Fragment implements ApplicationContextProvider {
 
     private final SpringAppCompatFragmentDelegate delegate = new SpringAppCompatFragmentDelegate(this);
 
@@ -17,5 +19,10 @@ public class SpringAppCompatFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         delegate.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public GenericApplicationContext getSpringApplicationContext() {
+        return delegate.getSpringApplicationContext();
     }
 }

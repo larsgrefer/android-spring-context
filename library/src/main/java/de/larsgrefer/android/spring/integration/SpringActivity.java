@@ -5,15 +5,15 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.MainThread;
 import android.support.annotation.Nullable;
-
+import de.larsgrefer.android.spring.context.ApplicationContextProvider;
 import de.larsgrefer.android.spring.delegate.SpringActivityDelegate;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.GenericApplicationContext;
 
 /**
  * @author Lars Grefer
  */
-@Slf4j
-public class SpringActivity extends Activity {
+public abstract class SpringActivity extends Activity implements ApplicationContextProvider {
 
     private final SpringActivityDelegate delegate = new SpringActivityDelegate(this);
 
@@ -25,4 +25,8 @@ public class SpringActivity extends Activity {
         delegate.onCreate(savedInstanceState);
     }
 
+    @Override
+    public GenericApplicationContext getSpringApplicationContext() {
+        return delegate.getSpringApplicationContext();
+    }
 }

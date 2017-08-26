@@ -8,12 +8,16 @@ android {
     buildToolsVersion '26.0.1'
 
     defaultConfig {
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
 
         consumerProguardFile file('proguard-rules.pro')
+    }
+
+    lintOptions {
+        warning "InvalidPackage"
     }
 }
 

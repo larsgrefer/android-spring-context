@@ -25,7 +25,7 @@ public class SpringActivityDelegate extends AbstractSpringDelegate<Activity> {
 
     @Override
     protected Application getApplication() {
-        return element.getApplication();
+        return getElement().getApplication();
     }
 
 }

@@ -1,4 +1,4 @@
-package de.larsgrefer.android.spring.context;
+package de.larsgrefer.android.spring;
 
 import android.app.Application;
 import android.content.pm.PackageManager;

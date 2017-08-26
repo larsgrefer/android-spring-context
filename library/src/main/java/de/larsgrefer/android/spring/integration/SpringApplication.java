@@ -2,13 +2,14 @@ package de.larsgrefer.android.spring.integration;
 
 import android.app.Application;
 import android.support.annotation.CallSuper;
+import de.larsgrefer.android.spring.context.ApplicationContextProvider;
 import de.larsgrefer.android.spring.delegate.SpringApplicationDelegate;
 import org.springframework.context.support.GenericApplicationContext;
 
 /**
  * @author Lars Grefer
  */
-public class SpringApplication extends Application {
+public abstract class SpringApplication extends Application implements ApplicationContextProvider {
 
     private final SpringApplicationDelegate delegate;
 
@@ -33,7 +34,8 @@ public class SpringApplication extends Application {
         delegate.onTerminate();
     }
 
-    public GenericApplicationContext getSpringContext() {
-        return delegate.getSpringContext();
+    @Override
+    public GenericApplicationContext getSpringApplicationContext() {
+        return delegate.getSpringApplicationContext();
     }
 }

@@ -1,5 +1,6 @@
-package de.larsgrefer.android.spring.context;
+package de.larsgrefer.android.spring;
 
+import de.larsgrefer.android.spring.context.AndroidResourcesMessageSource;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigRegistry;

@@ -3,10 +3,9 @@ package de.larsgrefer.android.spring.delegate;
 import android.app.Application;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import de.larsgrefer.android.spring.context.AndroidApplicationInitializer;
-import de.larsgrefer.android.spring.context.AndroidEnvironmentInitializer;
-import de.larsgrefer.android.spring.context.ContextHolderInitializer;
-import de.larsgrefer.android.spring.context.MessageSourceInitializer;
+import de.larsgrefer.android.spring.AndroidApplicationInitializer;
+import de.larsgrefer.android.spring.AndroidEnvironmentInitializer;
+import de.larsgrefer.android.spring.MessageSourceInitializer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -32,7 +31,6 @@ public class SpringApplicationDelegate extends AbstractSpringDelegate<Applicatio
 
         contextInitializers.add(new AndroidEnvironmentInitializer(application, buildConfigClass));
         contextInitializers.add(new AndroidApplicationInitializer(application));
-        contextInitializers.add(new ContextHolderInitializer(application));
         contextInitializers.add(new MessageSourceInitializer());
     }
 
@@ -46,8 +44,6 @@ public class SpringApplicationDelegate extends AbstractSpringDelegate<Applicatio
         for (ApplicationContextInitializer<? super AnnotationConfigApplicationContext> contextInitializer : contextInitializers) {
             contextInitializer.initialize(applicationContext);
         }
-
-        applicationContext.register(element.getClass());
 
         stopWatch.stop();
 
@@ -65,11 +61,11 @@ public class SpringApplicationDelegate extends AbstractSpringDelegate<Applicatio
 
     @Override
     protected Application getApplication() {
-        return element;
+        return getElement();
     }
 
     @Override
-    public GenericApplicationContext getApplicationContext() {
+    public GenericApplicationContext getSpringApplicationContext() {
         return applicationContext;
     }
 

@@ -20,6 +20,6 @@ public class SpringAppCompatFragmentDelegate extends AbstractSpringDelegate<Frag
 
     @Override
     protected Application getApplication() {
-        return element.getActivity().getApplication();
+        return getElement().getActivity().getApplication();
     }
 }
