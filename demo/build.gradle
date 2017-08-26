@@ -28,7 +28,7 @@ android {
 }
 
 dependencies {
-    compile project(":library")
+    compile project(":spring-android")
     provided "org.projectlombok:lombok:1.16.18"
 
     compile 'io.freefair:slf4j-android:1.7.21'

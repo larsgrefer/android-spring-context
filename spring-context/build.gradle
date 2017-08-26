@@ -28,6 +28,9 @@ android {
         exclude 'org/springframework/remoting/rmi/**'
     }
 
+    lintOptions {
+        warning "InvalidPackage"
+    }
 }
 
 configurations.all {
