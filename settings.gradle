@@ -1,3 +1,5 @@
+rootProject.name = 'android-spring-context'
+
 include ':spring-context'
 include ':spring-android'
 include ':demo'
