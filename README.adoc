@@ -1,7 +1,8 @@
 # Spring-Context for Android
+:toc: left
 Using an Spring ApplicationContext on Android
 
-WARNING: This is not production ready. It's just a proof of concept
+WARNING: This is not production ready.
 
 ## What's working:
 
@@ -16,13 +17,32 @@ WARNING: This is not production ready. It's just a proof of concept
 * Everything cglib related:
 ** Configuration Class Enhancement (so don't call `@Bean` methods directly)
 ** CGLIB proxies
-* Evertything asm related:
 
 ## Additional Features:
 
 * PropertySources
 ** Application `<meta-data />` from `AndroidManifest.xml`
 ** BuildConfig fields
+
+## Repository Structure
+
+### `spring-context`
+
+Modified version of the original `spring-context`, `spring-core`, `spring-beans`, `spring-aop` and `spring-expression` jars.
+Contains everything necessary to get _Spring_ working on Android:
+
+* Custom `ResourceLoader` and `ResourcePatternResolver`
+* Custom `MetadataReader`
+* Custom `ConfigurationClassEnhancer`
+* Proguard Rules for Java Configuration
+
+### `spring-android`
+
+Optional additions for nicer integration into an Android App.
+
+* Delegates and base classes for the Application, Activities, Fragments, etc.
+* PropertySources for BuildConfig fields and Application meta-data.
+* Support for MessageSources
 
 ## Startup Times
 |===
@@ -33,9 +53,6 @@ WARNING: This is not production ready. It's just a proof of concept
 
 |HTC One V
 |1s
-
-|HTC Desire Z
-|~2.2s
 |===
 
 
