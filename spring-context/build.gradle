@@ -89,7 +89,7 @@ dependencies {
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"
     }
-    compile 'org.slf4j:jcl-over-slf4j:1.7.25@jar'
+    compile 'org.slf4j:jcl-over-slf4j:1.7.25'
     compile 'io.freefair:openbeans:2.3'
 
     testCompile 'junit:junit:4.12'
