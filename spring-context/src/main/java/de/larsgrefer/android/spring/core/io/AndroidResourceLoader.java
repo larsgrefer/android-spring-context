@@ -1,5 +1,6 @@
 package de.larsgrefer.android.spring.core.io;
 
+import android.support.annotation.NonNull;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.util.ClassUtils;
@@ -18,7 +19,7 @@ public class AndroidResourceLoader extends DefaultResourceLoader {
     }
 
     @Override
-    public Resource getResource(String location) {
+    public Resource getResource(@NonNull String location) {
 
         if (location.startsWith(CLASSPATH_URL_PREFIX) && location.endsWith(".class")) {
 

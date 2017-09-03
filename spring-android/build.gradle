@@ -21,8 +21,6 @@ android {
     }
 }
 
-def springVersion = "4.3.10.RELEASE"
-
 dependencies {
 
     provided "org.projectlombok:lombok:1.16.18"
@@ -31,7 +29,6 @@ dependencies {
     compile 'com.android.support:support-compat:26.0.1'
 
     compile project(":spring-context")
-    provided "org.springframework:spring-context:$springVersion"
 
     testCompile 'junit:junit:4.12'
 }

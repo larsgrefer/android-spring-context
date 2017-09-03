@@ -34,7 +34,6 @@ public class AndroidPathMatchingResourcePatternResolver extends PathMatchingReso
         this(new AndroidResourceLoader(classLoader));
     }
 
-
     @Override
     protected Set<Resource> doFindAllClassPathResources(String path) throws IOException {
         Set<Resource> resources = super.doFindAllClassPathResources(path);
@@ -43,6 +42,7 @@ public class AndroidPathMatchingResourcePatternResolver extends PathMatchingReso
 
         List<DexFile> dexFiles = getDexFiles(cl);
 
+        String preparedPath = path.replace("/", ".");
         for (DexFile dexFile : dexFiles) {
 
             Enumeration<String> entries = dexFile.entries();
@@ -50,9 +50,9 @@ public class AndroidPathMatchingResourcePatternResolver extends PathMatchingReso
             while (entries.hasMoreElements()) {
                 String entry = entries.nextElement();
 
-                if (entry.startsWith(path.replace("/", "."))) {
-                    log.info("Found {}", entry);
-                    resources.add(new DexPathResource(cl, dexFile, path));
+                if (entry.startsWith(preparedPath)) {
+                    log.info("Found {} for path {}", entry, path);
+                    resources.add(new ExistingDexPathResource(cl, dexFile, path));
                     break;
                 }
             }
@@ -129,7 +129,7 @@ public class AndroidPathMatchingResourcePatternResolver extends PathMatchingReso
 
     }
 
-    protected Set<Resource> doFindPathMatchingDexClassResources(DexPathResource rootDirResource, String subPattern) {
+    private Set<Resource> doFindPathMatchingDexClassResources(DexPathResource rootDirResource, String subPattern) {
         String pattern = rootDirResource.getPath() + subPattern;
 
         Enumeration<String> entries = rootDirResource.getDexFile().entries();
@@ -140,10 +140,62 @@ public class AndroidPathMatchingResourcePatternResolver extends PathMatchingReso
             String entry = entries.nextElement();
             String fakePath = entry.replace('.', '/') + ".class";
             if(getPathMatcher().match(pattern, fakePath)) {
-                resources.add(new DexClassResource(entry, rootDirResource.getClassLoader()));
+                resources.add(new ExistingDexClassResource(entry, rootDirResource.getClassLoader()));
             }
         }
 
         return resources;
+    }
+
+    /**
+     * Subclass of {@link DexPathResource} which shortcuts the expensive existence check.
+     */
+    private static class ExistingDexPathResource extends DexPathResource {
+
+        ExistingDexPathResource(PathClassLoader cl, DexFile dexFile, String path) {
+            super(cl, dexFile, path);
+        }
+
+        /**
+         * @return true
+         */
+        @Override
+        public boolean exists() {
+            return true;
+        }
+
+        /**
+         * @return true
+         */
+        @Override
+        public Boolean getExists() {
+            return true;
+        }
+    }
+
+    /**
+     * Subclass of {@link DexClassResource} which shortcuts the expensive existence check.
+     */
+    private static class ExistingDexClassResource extends DexClassResource {
+
+        ExistingDexClassResource(String className, ClassLoader classLoader) {
+            super(className, classLoader);
+        }
+
+        /**
+         * @return true
+         */
+        @Override
+        public boolean exists() {
+            return true;
+        }
+
+        /**
+         * @return true
+         */
+        @Override
+        public Boolean getExists() {
+            return exists();
+        }
     }
 }
