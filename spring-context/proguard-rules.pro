@@ -13,6 +13,8 @@
 -keepclassmembers,allowobfuscation class * {
     @org.springframework.beans.factory.annotation.Autowired *;
     @org.springframework.beans.factory.annotation.Value *;
+}
+-keepclassmembers class * {
     @org.springframework.context.annotation.Bean *;
 }
 
