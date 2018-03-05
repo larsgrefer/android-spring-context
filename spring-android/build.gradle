@@ -4,8 +4,7 @@ apply plugin: 'io.freefair.android-maven-jars'
 apply plugin: 'io.freefair.android-ci'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 14
@@ -23,12 +22,12 @@ android {
 
 dependencies {
 
-    provided "org.projectlombok:lombok:1.16.18"
+    compileOnly "org.projectlombok:lombok:1.16.18"
 
-    provided 'com.android.support:appcompat-v7:26.0.2'
-    compile 'com.android.support:support-compat:26.0.2'
+    compileOnly 'com.android.support:appcompat-v7:26.0.2'
+    api 'com.android.support:support-compat:26.0.2'
 
-    compile project(":spring-context")
+    api project(":spring-context")
 
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }

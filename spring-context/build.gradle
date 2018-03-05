@@ -5,8 +5,7 @@ apply plugin: 'io.freefair.android-maven-jars'
 apply plugin: 'io.freefair.android-ci'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 9
@@ -41,32 +40,32 @@ def springVersion = "4.3.10.RELEASE"
 
 dependencies {
 
-    provided "org.projectlombok:lombok:1.16.18"
+    compileOnly "org.projectlombok:lombok:1.16.18"
 
-    compile 'org.slf4j:slf4j-api:1.7.25'
-    compile 'com.android.support:support-annotations:26.0.2'
+    api 'org.slf4j:slf4j-api:1.7.25'
+    api 'com.android.support:support-annotations:26.0.2'
 
-    provided "org.springframework:spring-context:$springVersion"
+    compileOnly "org.springframework:spring-context:$springVersion"
 
-    compile jarjar.repackage {
+    implementation jarjar.repackage {
         from "org.springframework:spring-aop:$springVersion@jar"
         destinationName = "spring-aop-${springVersion}-android.jar"
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"
     }
-    compile jarjar.repackage {
+    implementation jarjar.repackage {
         from "org.springframework:spring-beans:$springVersion@jar"
         destinationName = "spring-beans-${springVersion}-android.jar"
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"
     }
-    compile jarjar.repackage {
+    implementation jarjar.repackage {
         from "org.springframework:spring-expression:$springVersion@jar"
         destinationName = "spring-expression-${springVersion}-android.jar"
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"
     }
-    compile jarjar.repackage {
+    implementation jarjar.repackage {
         from "org.springframework:spring-core:$springVersion@jar"
         destinationName = "spring-core-${springVersion}-android.jar"
 
@@ -76,7 +75,7 @@ dependencies {
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"
     }
-    compile jarjar.repackage {
+    implementation jarjar.repackage {
         from "org.springframework:spring-context:$springVersion@jar"
         destinationName = "spring-context-${springVersion}-android.jar"
 
@@ -89,8 +88,8 @@ dependencies {
 
         classRename "java.beans.**", "com.googlecode.openbeans.@1"
     }
-    compile 'org.slf4j:jcl-over-slf4j:1.7.25'
-    compile 'io.freefair:openbeans:2.3'
+    api 'org.slf4j:jcl-over-slf4j:1.7.25'
+    api 'io.freefair:openbeans:2.3'
 
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }
