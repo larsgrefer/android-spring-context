@@ -24,11 +24,22 @@ android {
     lintOptions {
         warning "InvalidPackage"
     }
+    packagingOptions {
+        merge 'META-INF/spring.schemas'
+        merge 'META-INF/spring.tooling'
+        merge 'META-INF/spring.handlers'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'org/springframework/ejb/**'
+        exclude 'org/springframework/cglib/**'
+        exclude 'org/springframework/remoting/rmi/**'
+    }
 }
 
 dependencies {
     implementation project(":spring-android")
     compileOnly "org.projectlombok:lombok:1.16.18"
+    annotationProcessor "org.projectlombok:lombok:1.16.18"
 
     implementation 'io.freefair:slf4j-android:1.7.21'
     implementation 'com.android.support:appcompat-v7:26.0.2'

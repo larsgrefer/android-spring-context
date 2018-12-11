@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'org.anarres.jarjar'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'io.freefair.android-maven-jars'
 apply plugin: 'io.freefair.android-ci'
@@ -9,7 +8,7 @@ android {
 
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -36,58 +35,89 @@ configurations.all {
     exclude group: "commons-logging", module: "commons-logging"
 }
 
-def springVersion = "4.3.10.RELEASE"
+def springVersion = "4.3.21.RELEASE"
+
+configurations {
+    springAop
+    springBeans
+    springExpression
+    springCore
+    springContext
+    
+    runtime
+}
+
+dependencies {
+    springAop "org.springframework:spring-aop:$springVersion@jar"
+    springBeans "org.springframework:spring-beans:$springVersion@jar"
+    springExpression "org.springframework:spring-expression:$springVersion@jar"
+    springCore "org.springframework:spring-core:$springVersion@jar"
+    springContext "org.springframework:spring-context:$springVersion@jar"
+}
+
+import de.larsgrefer.ShadowJar
+
+task springAopJar(type: ShadowJar) {
+    baseName = "spring-aop"
+    from project.configurations.springAop
+
+    relocate "java.beans", "com.googlecode.openbeans"
+}
+task springBeansJar(type: ShadowJar) {
+    baseName = "spring-beans"
+    configurations = [project.configurations.springBeans]
+
+    relocate "java.beans", "com.googlecode.openbeans"
+}
+task springExpressionJar(type: ShadowJar) {
+    baseName = "spring-expression"
+    configurations = [project.configurations.springExpression]
+
+    relocate "java.beans", "com.googlecode.openbeans"
+}
+task springCoreJar(type: ShadowJar) {
+    baseName = "spring-core"
+    configurations = [project.configurations.springCore]
+
+    exclude "org/springframework/cglib/**"
+    exclude "org/springframework/core/type/classreading/SimpleMetadataReader.class"
+
+    relocate "java.beans", "com.googlecode.openbeans"
+}
+task springContextJar(type: ShadowJar) {
+    baseName = "spring-context"
+    configurations = [project.configurations.springContext]
+
+    exclude "org/springframework/ejb/**"
+    exclude "org/springframework/jmx/**"
+    exclude "org/springframework/remoting/rmi/**"
+    exclude "org/springframework/instrument/classloading/**"
+    exclude "org/springframework/context/annotation/ConfigurationClassEnhancer.class"
+
+    relocate "java.beans", "com.googlecode.openbeans"
+}
+
+tasks.withType(ShadowJar) {
+    version = springVersion
+    classifier = "android"
+}
 
 dependencies {
 
     compileOnly "org.projectlombok:lombok:1.16.18"
+    annotationProcessor "org.projectlombok:lombok:1.16.18"
 
     api 'org.slf4j:slf4j-api:1.7.25'
     api 'com.android.support:support-annotations:26.0.2'
 
     compileOnly "org.springframework:spring-context:$springVersion"
 
-    implementation jarjar.repackage {
-        from "org.springframework:spring-aop:$springVersion@jar"
-        destinationName = "spring-aop-${springVersion}-android.jar"
-
-        classRename "java.beans.**", "com.googlecode.openbeans.@1"
-    }
-    implementation jarjar.repackage {
-        from "org.springframework:spring-beans:$springVersion@jar"
-        destinationName = "spring-beans-${springVersion}-android.jar"
-
-        classRename "java.beans.**", "com.googlecode.openbeans.@1"
-    }
-    implementation jarjar.repackage {
-        from "org.springframework:spring-expression:$springVersion@jar"
-        destinationName = "spring-expression-${springVersion}-android.jar"
-
-        classRename "java.beans.**", "com.googlecode.openbeans.@1"
-    }
-    implementation jarjar.repackage {
-        from "org.springframework:spring-core:$springVersion@jar"
-        destinationName = "spring-core-${springVersion}-android.jar"
-
-        classDelete "org.springframework.cglib.**"
-        //classDelete "org.springframework.asm.**"
-        classDelete "org.springframework.core.type.classreading.SimpleMetadataReader"
-
-        classRename "java.beans.**", "com.googlecode.openbeans.@1"
-    }
-    implementation jarjar.repackage {
-        from "org.springframework:spring-context:$springVersion@jar"
-        destinationName = "spring-context-${springVersion}-android.jar"
-
-        classDelete "org.springframework.ejb.**"
-        classDelete "org.springframework.jmx.**"
-        classDelete "org.springframework.remoting.rmi.**"
-        classDelete "org.springframework.context.annotation.ConfigurationClassEnhancer"
-        classDelete 'org.springframework.context.annotation.ConfigurationClassEnhancer$*'
-        classDelete "org.springframework.instrument.classloading.**"
-
-        classRename "java.beans.**", "com.googlecode.openbeans.@1"
-    }
+    api files(springAopJar)
+    api files(springBeansJar)
+    api files(springExpressionJar)
+    api files(springCoreJar)
+    api files(springContextJar)
+    
     api 'org.slf4j:jcl-over-slf4j:1.7.25'
     api 'io.freefair:openbeans:2.3'
 
